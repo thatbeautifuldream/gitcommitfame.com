@@ -1,66 +1,136 @@
-import UserHeader from "@/components/user-header";
-import { getServerAuthSession } from "@/server/auth";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { instrumentSerif } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
+import {
+  ArrowRight,
+  Github,
+  GitCommit,
+  Share2,
+  TrendingUp,
+} from "lucide-react";
 import Link from "next/link";
+import React from "react";
 
-export default async function HomePage() {
-  const session = await getServerAuthSession();
+export default function Home() {
+  const features = [
+    {
+      icon: GitCommit,
+      title: "Showcase Commits",
+      description:
+        "Visualize your coding journey with beautiful commit history graphs and statistics",
+      content:
+        "Transform your GitHub activity into an engaging visual story that demonstrates your dedication and consistency",
+      color: "text-green-600",
+    },
+    {
+      icon: TrendingUp,
+      title: "Track Progress",
+      description:
+        "Monitor your growth and development as a programmer over time",
+      content:
+        "See your skills evolve with detailed analytics and progress tracking features",
+      color: "text-blue-600",
+    },
+    {
+      icon: Share2,
+      title: "Share & Connect",
+      description:
+        "Share your profile with recruiters and connect with fellow developers",
+      content:
+        "Build your professional network and showcase your achievements to potential employers",
+      color: "text-purple-600",
+    },
+  ];
 
   return (
-    <main className="flex min-h-screen flex-col items-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      {/* User Header */}
-      <div className="w-full bg-white/10 p-4">
-        <div className="container mx-auto flex items-center justify-between">
-          <UserHeader session={session} />
-          <div>
-            {session ? (
-              <Link
-                href="/api/auth/signout"
-                className="rounded-lg bg-white/10 px-4 py-2 font-semibold hover:bg-white/20"
-              >
-                Sign out
-              </Link>
-            ) : (
-              <Link
-                href="/signin"
-                className="rounded-lg bg-white/10 px-4 py-2 font-semibold hover:bg-white/20"
-              >
-                Sign in
-              </Link>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* Existing content */}
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-        <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-          Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
+    <div className="container mx-auto flex min-h-screen flex-col justify-between px-4 py-16">
+      {/* Hero Section */}
+      <section className="mx-auto flex max-w-3xl flex-col items-center gap-6 px-4 sm:px-6 lg:px-8">
+        <h1
+          className={cn(
+            "text-center text-3xl font-normal leading-tight sm:text-4xl md:text-5xl",
+            instrumentSerif.className,
+          )}
+        >
+          <span className="text-gray-900">The Developer's Showcase</span>
+          <br />
+          <span className="text-gray-700">
+            to <span className="italic">highlight</span> &amp;{" "}
+            <span className="underline">share</span> your GitHub journey!
+          </span>
         </h1>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/usage/first-steps"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">First Steps →</h3>
-            <div className="text-lg">
-              Just the basics - Everything you need to know to set up your
-              database and authentication.
-            </div>
-          </Link>
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/introduction"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">Documentation →</h3>
-            <div className="text-lg">
-              Learn more about Create T3 App, the libraries it uses, and how to
-              deploy it.
-            </div>
-          </Link>
+        <h2 className="max-w-2xl text-center text-base text-gray-600 sm:text-lg">
+          {[
+            "Showcase your commits",
+            "visualize your progress",
+            "impress recruiters",
+          ].map((text, index) => (
+            <React.Fragment key={index}>
+              <button
+                className="rounded font-normal text-gray-600 transition-colors duration-300 hover:text-green-700 focus:outline-none focus:ring-2 focus:ring-green-700 focus:ring-opacity-50"
+                type="button"
+              >
+                {text}
+              </button>
+              {index < 2 && <span className="mx-1">,</span>}
+              {index === 2 && <span className="mx-1">and</span>}
+            </React.Fragment>
+          ))}
+          <span>connect with the most innovative developers.</span>
+        </h2>
+      </section>
+
+      {/* Feature Cards Section */}
+      <section className="mx-auto max-w-2xl">
+        <div className="space-y-4">
+          {features.map((feature, index) => {
+            const Icon = feature.icon;
+            return (
+              <Card
+                key={index}
+                className="relative overflow-hidden transition-all hover:-translate-y-1 hover:shadow-lg"
+              >
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent to-gray-50/30" />
+                <CardHeader className="flex flex-row items-center gap-4">
+                  <div className={`${feature.color} rounded-lg bg-gray-50 p-2`}>
+                    <Icon className="h-8 w-8" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-xl">{feature.title}</CardTitle>
+                    <CardDescription className="text-sm">
+                      {feature.description}
+                    </CardDescription>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground text-sm">
+                    {feature.content}
+                  </p>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
-      </div>
-    </main>
+      </section>
+
+      <footer className="text-muted-foreground mt-16 text-center text-sm">
+        <p>
+          &copy; {new Date().getFullYear()} &lt;GitCommitFame /&gt; by{" "}
+          <Link
+            href="/thatbeautifuldream"
+            className="hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            aria-label="Take a look at Milind's Commit History"
+          >
+            Milind Mishra
+          </Link>
+        </p>
+      </footer>
+    </div>
   );
 }
