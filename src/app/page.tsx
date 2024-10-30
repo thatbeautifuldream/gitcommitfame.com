@@ -17,37 +17,37 @@ import {
 import Link from "next/link";
 import React from "react";
 
-export default function Home() {
-  const features = [
-    {
-      icon: GitCommit,
-      title: "Showcase Commits",
-      description:
-        "Visualize your coding journey with beautiful commit history graphs and statistics",
-      content:
-        "Transform your GitHub activity into an engaging visual story that demonstrates your dedication and consistency",
-      color: "text-green-600",
-    },
-    {
-      icon: TrendingUp,
-      title: "Track Progress",
-      description:
-        "Monitor your growth and development as a programmer over time",
-      content:
-        "See your skills evolve with detailed analytics and progress tracking features",
-      color: "text-blue-600",
-    },
-    {
-      icon: Share2,
-      title: "Share & Connect",
-      description:
-        "Share your profile with recruiters and connect with fellow developers",
-      content:
-        "Build your professional network and showcase your achievements to potential employers",
-      color: "text-purple-600",
-    },
-  ];
+const features = [
+  {
+    icon: GitCommit,
+    title: "Showcase Commits",
+    description:
+      "Visualize your coding journey with beautiful commit history graphs and statistics",
+    content:
+      "Transform your GitHub activity into an engaging visual story that demonstrates your dedication and consistency",
+    color: "text-green-600",
+  },
+  {
+    icon: TrendingUp,
+    title: "Track Progress",
+    description:
+      "Monitor your growth and development as a programmer over time",
+    content:
+      "See your skills evolve with detailed analytics and progress tracking features",
+    color: "text-blue-600",
+  },
+  {
+    icon: Share2,
+    title: "Share & Connect",
+    description:
+      "Share your profile with recruiters and connect with fellow developers",
+    content:
+      "Build your professional network and showcase your achievements to potential employers",
+    color: "text-purple-600",
+  },
+];
 
+export default function Home() {
   return (
     <div className="container mx-auto flex min-h-screen flex-col justify-between px-4 py-16">
       {/* Hero Section */}
@@ -109,7 +109,7 @@ export default function Home() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground text-sm">
+                  <p className="text-sm text-muted-foreground">
                     {feature.content}
                   </p>
                 </CardContent>
@@ -119,7 +119,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="text-muted-foreground mt-16 text-center text-sm">
+      <footer className="mt-16 text-center text-sm text-muted-foreground">
         <p>
           &copy; {new Date().getFullYear()} &lt;GitCommitFame /&gt; by{" "}
           <Link
